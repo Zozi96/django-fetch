@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title{{ title }}</title>
-    
+    <link rel="stylesheet" href="{% static 'libs/mdbootstrap/css/mdb.min.css' %}">
     {% block extrastyle %}{% endblock %}
         
 </head>
@@ -14,7 +14,7 @@
     
     {% block content %}{% endblock %}
         
-    
+    <script src="{% static 'libs/mdbootstrap/js/mdb.min.js' %}"></script>
     {% block extrajs %}{% endblock %}
 </body>
 </html>
