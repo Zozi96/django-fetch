@@ -3,13 +3,14 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <form action="" method="post">
-            {% csrf_token %}
+
+        <form action="" method="post" id="formFC">
             {{ form.as_p }}
-            <button class="btn btn-primary">
-                Guardar
-            </button>
         </form>
+        <button class="btn btn-primary" onclick="sendForm()">
+            Guardar
+        </button>
+
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -22,16 +23,64 @@
             </thead>
             <tbody>
                 {% for i in objects %}
-                <tr>
+                <tr id='elementos'>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ i.name }}</td>
                     <td>{{ i.foundation_year }}</td>
                     <td>{{ i.owner }}</td>
                     <td>{{ i.city }}</td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td>0</td>
+                    <td>Vacio</td>
+                    <td>Vacio</td>
+                    <td>Vacio</td>
+                    <td>Vacio</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </div>
+{% endblock %}
+
+
+{% block extrajs %}
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+
+
+    const sendForm = async () => {
+        try {
+            const form = new FormData(document.getElementById('formFC'));
+            const res = await fetch('/form/', {
+                method: 'POST',
+                body: form,
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+</script>
 {% endblock %}

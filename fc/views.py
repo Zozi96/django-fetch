@@ -14,5 +14,5 @@ class FootballClubCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(FootballClubCreateView,
                         self).get_context_data(**kwargs)
-        context['objects'] = get_list_or_404(self.model)
+        context['objects'] = self.model.objects.all()
         return context
