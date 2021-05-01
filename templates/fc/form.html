@@ -7,40 +7,45 @@
         <form action="" method="post" id="formFC">
             {{ form.as_p }}
         </form>
-        <button class="btn btn-primary" onclick="sendForm()">
-            Guardar
-        </button>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre del club</th>
-                    <th scope="col">Año de fundación</th>
-                    <th scope="col">Presidente</th>
-                    <th scope="col">Ciudad</th>
-                </tr>
-            </thead>
-            <tbody id='elementos'>
-                {% for i in objects %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ i.name }}</td>
-                    <td>{{ i.foundation_year }}</td>
-                    <td>{{ i.owner }}</td>
-                    <td>{{ i.city }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td>0</td>
-                    <td>Vacio</td>
-                    <td>Vacio</td>
-                    <td>Vacio</td>
-                    <td>Vacio</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div>
+            <button style='width:100px; height:30px;' class="btn btn-primary btn-sm" onclick="sendForm()">
+                Guardar
+            </button>
+            &nbsp;
+            <hr>
+        </div>
+        <div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre del club</th>
+                        <th scope="col">Año de fundación</th>
+                        <th scope="col">Presidente</th>
+                        <th scope="col">Ciudad</th>
+                    </tr>
+                </thead>
+                <tbody id='elementos'>
+                    {% for i in objects %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ i.name }}</td>
+                        <td>{{ i.foundation_year }}</td>
+                        <td>{{ i.owner }}</td>
+                        <td>{{ i.city }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td>0</td>
+                        <td>Vacio</td>
+                        <td>Vacio</td>
+                        <td>Vacio</td>
+                        <td>Vacio</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}
