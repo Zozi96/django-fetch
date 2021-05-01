@@ -21,9 +21,9 @@
                     <th scope="col">Ciudad</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id='elementos'>
                 {% for i in objects %}
-                <tr id='elementos'>
+                <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ i.name }}</td>
                     <td>{{ i.foundation_year }}</td>
@@ -65,22 +65,32 @@
     }
     const csrftoken = getCookie('csrftoken');
 
-
-
     const sendForm = async () => {
         try {
             const form = new FormData(document.getElementById('formFC'));
+            const body = document.getElementById('elementos')
             const res = await fetch('/form/', {
                 method: 'POST',
                 body: form,
                 headers: {
                     'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest',
                 }
             })
+            const data = await res.json()
+            const objects = data.objects.map(i => `
+            <tr>
+                <th scope="row">${i.id}</th>
+                <td>${i.name}</td>
+                <td>${i.foundation_year}</td>
+                <td>${i.owner}</td>
+                <td>${i.city}</td>
+            </tr>
+            `).join('')
+            body.innerHTML = objects
         } catch (error) {
             console.log(error);
         }
     }
-
 </script>
 {% endblock %}
